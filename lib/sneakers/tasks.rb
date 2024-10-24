@@ -10,7 +10,8 @@ namespace :sneakers do
     Rake::Task['environment'].invoke
 
     if defined?(::Rails)
-      if Rails.autoloaders.zeitwerk_enabled?
+      check = Rails.autoloaders.zeitwerk_enabled? rescue false
+      if check
         ::Zeitwerk::Loader.eager_load_all
       else
         ::Rails.application.eager_load!
